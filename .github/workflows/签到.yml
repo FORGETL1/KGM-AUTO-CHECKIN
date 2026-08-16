@@ -8,10 +8,7 @@ on:
         default: "test"
   schedule:
     - cron: '10 17 * * *'
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/签到.yml'
+    - cron: '36 8 * * *'   # TEMP test trigger ~08:36 UTC
 permissions:
   contents: read
 jobs:
