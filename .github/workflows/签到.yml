@@ -1,6 +1,11 @@
 name: ç­¾å°
 on:
   workflow_dispatch:
+    inputs:
+      test:
+        description: "手动触发测试（脚本忽略）"
+        required: false
+        default: "test"
   schedule:
     - cron: '10 17 * * *'
 permissions:
