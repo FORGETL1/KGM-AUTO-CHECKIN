@@ -1,8 +1,8 @@
-name: 签到
+name: ç­¾å°
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '10 17 * * *'
 permissions:
   contents: read
 jobs:
@@ -10,24 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
-      - name: 随机延迟（仅定时触发，落在北京时间 08:00-10:00）
+      - name: éæºå»¶è¿ï¼ä»å®æ¶è§¦åï¼è½å¨åäº¬æ¶é´ 01:10-03:10ï¼
         if: ${{ github.event_name == 'schedule' }}
         run: |
           DELAY=$(( RANDOM % 121 ))
-          echo "随机延迟 ${DELAY} 分钟，预计北京时间 08:00 后约 ${DELAY} 分触发签到"
+          echo "éæºå»¶è¿ ${DELAY} åéï¼é¢è®¡åäº¬æ¶é´ 08:00 åçº¦ ${DELAY} åè§¦åç­¾å°"
           sleep ${DELAY}m
 
-      - name: 检出仓库
+      - name: æ£åºä»åº
         uses: actions/checkout@v5
 
-      - name: 创建 Node 环境
+      - name: åå»º Node ç¯å¢
         uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: 'npm'
           cache-dependency-path: ./api/package-lock.json
 
-      - name: 检查 GitHub CLI
+      - name: æ£æ¥ GitHub CLI
         run: |
           if ! command -v gh >/dev/null 2>&1; then
             curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -38,7 +38,7 @@ jobs:
           fi
           gh --version
 
-      - name: 缓存依赖
+      - name: ç¼å­ä¾èµ
         id: cache-npm
         uses: actions/cache@v5
         with:
@@ -47,11 +47,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: 安装依赖
+      - name: å®è£ä¾èµ
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm run install
 
-      - name: 执行签到
+      - name: æ§è¡ç­¾å°
         run: npm run main
         env:
           USERINFO: ${{ secrets.USERINFO }}
