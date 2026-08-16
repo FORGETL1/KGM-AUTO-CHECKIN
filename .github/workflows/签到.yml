@@ -8,7 +8,7 @@ on:
         default: "test"
   schedule:
     - cron: '10 17 * * *'
-    - cron: '36 8 * * *'   # TEMP test trigger ~08:36 UTC
+  push:
 permissions:
   contents: read
 jobs:
